@@ -1,106 +1,73 @@
-**📝 Online Text Editor**
+# React + TypeScript + Vite
 
-A modern, feature-rich browser-based text editor built with HTML, CSS, and JavaScript.
-It supports rich text formatting, file handling, themes, shortcuts, and advanced editing tools — all in one clean interface.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-✨ **Features**
-📝 **Core Editing**
+Currently, two official plugins are available:
 
-Rich text editing using contentEditable
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-Live word & character counter
+## React Compiler
 
-Optional auto-save support
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-🎨 **Text Formatting**
+## Expanding the ESLint configuration
 
-Basic: Bold, Italic, Underline, Strikethrough
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-Colors: Text & highlight color pickers (40+ colors)
+```js
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
 
-Fonts: 10 font families (Arial, Roboto, Fira Code, etc.)
+      // Remove tseslint.configs.recommended and replace with this
+      tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      tseslint.configs.stylisticTypeChecked,
 
-Sizes: 8px to 72px
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+```
 
-Headings: H1 to H6 + Normal paragraph
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-📐 **Alignment & Layout**
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
 
-Left, Center, Right, Justify
-
-Bullet & numbered lists
-
-Line height adjustment
-
-Word wrap toggle
-
-🔗 **Insert Elements**
-
-Hyperlinks
-
-Images (via URL)
-
-Blockquotes
-
-Code blocks
-
-Subscript & Superscript
-
-📁 **File Operations**
-
-New document (Ctrl + N)
-
-Open files (.txt, .html, .md)
-
-Save as HTML (Ctrl + S)
-
-Save as Plain Text
-
-Print support (Ctrl + P)
-
-🔍 **Find & Replace**
-
-Case-sensitive search
-
-Whole word match
-
-Replace all option
-
-⚙️ **Editor Settings**
-
-Font size slider (8–72px)
-
-Line height (1.0–3.0)
-
-Font selector
-
-Word wrap toggle
-
-Spell check toggle
-
-Auto-save interval setting
-
-🎭 **UI Features**
-
-Dark / Light mode
-
-Fullscreen mode
-
-Responsive design
-
-Professional toolbar layout
-
-Tooltips for all buttons
-
-⌨️ **Keyboard Shortcuts**
-Shortcut	Action
-Ctrl + N	New document
-Ctrl + O	Open file
-Ctrl + S	Save as HTML
-Ctrl + P	Print
-Ctrl + F	Find & Replace
-Ctrl + Z	Undo
-Ctrl + Y	Redo
-Ctrl + B	Bold
-Ctrl + I	Italic
-Ctrl + U	Underline
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+```
